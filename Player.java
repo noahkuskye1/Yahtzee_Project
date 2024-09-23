@@ -115,6 +115,7 @@ public class Player{
       System.out.println("=====================================");
       System.out.println("");
    }
+
    
    //gets the grandtotal of each Yahtzee player
    public int getGrandTotalScore(){
@@ -127,4 +128,20 @@ public class Player{
      System.out.println(this.getName() + "'s turn");
      System.out.println("=================================");
   } 
+  public void saveScore(){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("gameData.txt"));
+            writer.write(this.getName());
+            writer.write(this.scorecard.getValues());
+            writer.write(this.scorecard.getThreeOrFourKind());
+            writer.write(this.scorecard.getFullHouse());
+            writer.write(this.scorecard.getStraights());
+            writer.write(this.scorecard.getYahtzee());
+            writer.write(this.scorecard.getChance());
+            writer.write(this.scorecard.getGrandTotalScore());
+            writer.close();
+        } catch (IOException ioe) {
+            System.out.println("Couldn't write to file");
+        }
+    }
 }
