@@ -59,14 +59,15 @@ public class YahtzeeGame{
 
       //gives the game
       public static void Game(){
+         Player currentPlayer = playersMade[playerId];
          int turn = 0; //turn of each game
          //when there are 14 turns for each player,
          //a header then the rolls for the dice is made
          while(turn < 14){
             for(playerId = 0; playerId < playersMade.length; playerId++){
-               Player currentPlayer = playersMade[playerId];
                currentPlayer.viewTurnHead();
                currentPlayer.turn();
+               currentPlayer.saveScore();
           }
           turn++;
           }
