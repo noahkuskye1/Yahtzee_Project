@@ -138,7 +138,6 @@ public class Player{
             writer.write(this.scorecard.getStraights());
             writer.write(this.scorecard.getYahtzee());
             writer.write(this.scorecard.getChance());
-            writer.write(this.scorecard.getGrandTotalScore());
             writer.close();
         } catch (IOException ioe) {
             System.out.println("Couldn't write to file");
