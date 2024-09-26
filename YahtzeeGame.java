@@ -1,5 +1,7 @@
-import java.io.*;
-import java.util.*;
+package com.google.cloud;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class YahtzeeGame{
     private Dice[] dice; //gets dice
@@ -11,7 +13,7 @@ public class YahtzeeGame{
     public static int playerId; //id of player
     public static int playercount; //id count of player
     
-    public static void main(String[] args){   
+    public static void main(String[] args) throws IOException{   
       /*spells out Yahtzee for title*/
       YahtzeeGame.YahtzeeBanner();
       
@@ -26,6 +28,8 @@ public class YahtzeeGame{
       
       //ending text
       System.out.println("Game Over");
+
+      CloudStorageUtil.uploadScore();
       
       }
       
@@ -63,14 +67,14 @@ public class YahtzeeGame{
          int turn = 0; //turn of each game
          //when there are 14 turns for each player,
          //a header then the rolls for the dice is made
-         while(turn < 14){
+         while(turn < 13){
             for(playerId = 0; playerId < playersMade.length; playerId++){
                currentPlayer.viewTurnHead();
                currentPlayer.turn();
-               currentPlayer.saveScore();
           }
           turn++;
           }
+          currentPlayer.saveScore();
        }
        
       //method to combine number of players with names
@@ -93,3 +97,4 @@ public class YahtzeeGame{
       System.out.println("\t\t****************************************************************************************************");
       }
 }
+
