@@ -1,14 +1,18 @@
-import java.io.*;
-import java.util.*;
+package com.google.cloud;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 public class Player{
    private String playerNames; //list of playernames
    private Dice dice; //dice
-   private Scorecard scorecard; //scorecard
+   private Scorecard Scorecard; //scorecard
    //instantiating each player with their dice, name, and scorecard
    public Player(String playerNames){
       this.dice = new Dice(5);
       this.setName(playerNames);
-      this.scorecard = new Scorecard();
+      this.Scorecard = new Scorecard();
    }
    
    //sets the name of player
@@ -23,7 +27,7 @@ public class Player{
    
    //gets the Scorecard of player
    public Scorecard getScorecard(){
-      return this.scorecard;
+      return this.Scorecard;
    }
    
    //what happens in a turn of the game
@@ -95,11 +99,11 @@ public class Player{
       int decision = scan.nextInt();
       
       //When someone choose a filled score in scorecard, it returns back another chance to fill out card
-      while(!scorecard.choiceValidated(decision)){
+      while(!Scorecard.choiceValidated(decision)){
          System.out.println("\n\t Please choose any unmarked categories (1-14): \n Upper & Lower Score, Bonus, and Total don't apply.");
          decision = scan.nextInt();
       }
-      scorecard.choiceOfCategory(decision, dice);
+      Scorecard.choiceOfCategory(decision, dice);
       
       showCard();
    }
@@ -108,10 +112,10 @@ public class Player{
    private void showCard(){
       System.out.println("");
       System.out.println("================Yahtzee==============");
-      System.out.println("\t\t\t\t\t" + playerNames + "'s Scorecard");
+      System.out.println("\t\t\t" + playerNames + "'s Scorecard");
       System.out.println("=====================================");
       System.out.println("");
-      scorecard.viewScorecard();
+      Scorecard.viewScorecard();
       System.out.println("=====================================");
       System.out.println("");
    }
@@ -119,7 +123,7 @@ public class Player{
    
    //gets the grandtotal of each Yahtzee player
    public int getGrandTotalScore(){
-      return scorecard.getGrandTotalScore();
+      return Scorecard.getGrandTotalScore();
    }
    
    //Prints header of each player's turn
@@ -128,19 +132,22 @@ public class Player{
      System.out.println(this.getName() + "'s turn");
      System.out.println("=================================");
   } 
+  
   public void saveScore(){
-        try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter("gameData.txt"));
-            writer.write(this.getName());
-            writer.write(this.scorecard.getValues());
-            writer.write(this.scorecard.getThreeOrFourKind());
-            writer.write(this.scorecard.getFullHouse());
-            writer.write(this.scorecard.getStraights());
-            writer.write(this.scorecard.getYahtzee());
-            writer.write(this.scorecard.getChance());
-            writer.close();
-        } catch (IOException ioe) {
-            System.out.println("Couldn't write to file");
-        }
-    }
+      
+   try(BufferedWriter writer = new BufferedWriter(new FileWriter("gameData.txt"))) {
+      //checks the amount of players
+      for(int i = 0; i < YahtzeeGame.playersMade.length; i++) {
+          writer.write(YahtzeeGame.playersMade[i] + "\n"); 
+            //checks the scores of players
+            for(int j = 0; j < Scorecard.scorecard.length; j++){
+               writer.write(Scorecard.scorecard[j]);
+            }
+          }
+          writer.write("\n"); 
+      } catch(IOException e) {
+      e.printStackTrace(); 
+  }
 }
+}
+
