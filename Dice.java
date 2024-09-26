@@ -1,4 +1,6 @@
-import java.util.*;
+package com.google.cloud;
+
+import java.util.Random;
 
 //Dice class to store dice and actions
 public class Dice{
