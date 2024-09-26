@@ -1,12 +1,14 @@
-import java.util.*;
+package com.google.cloud;
+
+import java.util.Arrays;
 
 public class Scorecard {
    //Inputs already chosen
    private boolean[] alreadyChosen = new boolean[13];
    //players for their scorecard
-   private Player[] players;
+   public Player[] players;
    //create the scorecard with choices
-   private int[] scorecard = new int[13];
+   public int[] scorecard = new int[13];
    //Scorecard Score Titles
    private String[] scorecardTitles = {"Ones             ", "Twos             ", 
    "Threes           ", "Fours            ", "Fives            ", "Sixes            ", 
@@ -235,4 +237,5 @@ public class Scorecard {
             return true;
          }
       }
-   }
+
+}
