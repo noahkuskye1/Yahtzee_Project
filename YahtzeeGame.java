@@ -39,7 +39,7 @@ public class YahtzeeGame{
          for (int i = 0; i < player.length; i++){
             //makes name for each user playing
             System.out.println("Enter name of Player " + (i+1) + " here:  ");
-            String nameOfPlayer = scan.nextLine();
+            String nameOfPlayer = scan.nextLine().trim();
             player[i] = new Player(nameOfPlayer); //each new player made
          }
          return player;
